@@ -156,15 +156,8 @@ public static function register($username, $password, $role, $fullname, $address
             $stmt->bindParam(':contact', $contact);
             $stmt->bindParam(':user_id', $user_id);
             $result = $stmt->execute();
-            if ($result) {
-                // Update successful
-                echo "User updated successfully!";
-                return $result;
-            } else {
-                // Handle the error
-                echo "Failed to update the user.";
-            }
- 
+           
+            return $result;
         } catch (PDOException $e) {
             echo $e->getMessage();
             error_log($e->getMessage());
