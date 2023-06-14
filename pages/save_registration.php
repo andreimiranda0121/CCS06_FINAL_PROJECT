@@ -10,9 +10,8 @@ use App\User;
     $address = $_POST['address'];
     $email = $_POST['email'];
     $contact = $_POST['contact'];
-    $billing = $_POST['billing'];
     $username = $_POST['username'];
-    $result = User::register($username, $password, $role, $fullname, $address, $email, $contact, $billing);
+    $result = User::register($username, $password, $role, $fullname, $address, $email, $contact);
     if ($result) {
         echo "
             <script>

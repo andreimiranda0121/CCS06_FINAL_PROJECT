@@ -128,34 +128,34 @@ class Cart{
         }
     }
 
-    public static function add($product_id, $user_id, $cart_quantity,$size) {
+    public static function add($product_id, $user_id, $cart_quantity, $size) {
         global $conn;
         try {
-            // Check if the item already exists in the cart for the user
+            // Check if the item already exists in the cart for the user with the same size
             $sql = "
-                SELECT cart_id, cart_quantity
+                SELECT cart_id, cart_quantity, size
                 FROM cart
-                WHERE user_id = :user_id AND product_id = :product_id
+                WHERE user_id = :user_id AND product_id = :product_id AND size = :size
             ";
             $statement = $conn->prepare($sql);
             $statement->execute([
                 'user_id' => $user_id,
                 'product_id' => $product_id,
+                'size' => $size
             ]);
             $result = $statement->fetch(PDO::FETCH_ASSOC);
     
             if ($result) {
-                // If the item exists, update the quantity
+                // If the item exists with the same size, update the quantity
                 $sql = "
                     UPDATE cart
                     SET cart_quantity = :cart_quantity + cart_quantity
-                    WHERE user_id = :user_id AND product_id = :product_id
+                    WHERE cart_id = :cart_id
                 ";
                 $statement = $conn->prepare($sql);
                 $statement->execute([
-                    'user_id' => $user_id,
-                    'product_id' => $product_id,
-                    'cart_quantity' => $cart_quantity
+                    'cart_quantity' => $cart_quantity,
+                    'cart_id' => $result['cart_id']
                 ]);
                 return $result['cart_id'];
             } else {
@@ -177,6 +177,8 @@ class Cart{
             error_log($e->getMessage());
         }
     }
+    
+    
     
     public static function getCartQuantity($product_id, $user_id) {
         global $conn;

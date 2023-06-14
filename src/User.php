@@ -12,7 +12,16 @@ class User
     protected $user_id;
     protected $email;
     protected $shipping_address;
-    protected $billing_address;
+    protected $contact;
+    protected $fullname;
+
+    public function getFullname(){
+        return $this->fullname;
+    }
+
+    public function getContact(){
+        return $this->contact;
+    }
 
     public function getUsername()
     {
@@ -41,9 +50,6 @@ class User
         return $this->shipping_address;
     }
 
-    public function getBilling(){
-        return $this->billing_address;
-    }
     
     public static function attemptLogin($username, $password)
 {
@@ -67,7 +73,7 @@ class User
     return null;
 }
 
-public static function register($username, $password, $role, $fullname, $address, $email, $contact, $billing_address)
+public static function register($username, $password, $role, $fullname, $address, $email, $contact)
 {
     global $conn;
 
@@ -90,12 +96,12 @@ public static function register($username, $password, $role, $fullname, $address
 
         // Insert the new user
         $insertQuery = "
-            INSERT INTO users (username, password, roles, fullname, shipping_address, email, contact, billing_address)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO users (username, password, roles, fullname, shipping_address, email, contact)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         ";
 
         $stmtInsert = $conn->prepare($insertQuery);
-        $stmtInsert->execute([$username, $password, $role, $fullname, $address, $email, $contact, $billing_address]);
+        $stmtInsert->execute([$username, $password, $role, $fullname, $address, $email, $contact]);
 
         return $conn->lastInsertId();
     } catch (PDOException $e) {
@@ -129,9 +135,44 @@ public static function register($username, $password, $role, $fullname, $address
         return null;
     }
 
+    public static function update($user_id, $username, $password, $fullname, $address, $email, $contact) {
+        global $conn;
+        try {
+            $sql = "UPDATE users
+                    SET username = :username,
+                        password = :password,
+                        fullname = :fullname,
+                        shipping_address = :shipping_address,
+                        email = :email,
+                        contact = :contact
+                    WHERE user_id = :user_id";
+    
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':username', $username);
+            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':fullname', $fullname);
+            $stmt->bindParam(':shipping_address', $address);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':contact', $contact);
+            $stmt->bindParam(':user_id', $user_id);
+            $result = $stmt->execute();
+            if ($result) {
+                // Update successful
+                echo "User updated successfully!";
+                return $result;
+            } else {
+                // Handle the error
+                echo "Failed to update the user.";
+            }
+ 
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            error_log($e->getMessage());
+        }
+    }
+    
 
 }
-
 
 
 ?>

@@ -19,6 +19,13 @@ $product = Product::listCategoryMen($category);
     <title>Mal De Wear</title>
 </head>
 <style>
+    .add-to-cart-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: gray; 
+    color: white; 
+}
+
     .product-container {
     display: flex;
     flex-direction: column;
@@ -154,7 +161,7 @@ $product = Product::listCategoryMen($category);
     ?>
 </section>
 
-<form method="post" action="save_to_cart.php">
+<form method="post" action="save_to_cart.php" onsubmit="return validateForm()">
     <input type="hidden" name="product_id" class="popup-productID">
     <div class="overlay">
         <div class="popup-item">
@@ -168,26 +175,27 @@ $product = Product::listCategoryMen($category);
                     <p class="product-info__text popup-clothingDescription"></p>
                     <div class="detail-group">
                         <p class="detail-group__span">Size:</p>
-                        <select class="detail-group__size" required>
-                            <option name="size" value="">Select Size</option>
-                            <option name="size" value="XS">XS</option>
-                            <option name="size" value="S">S</option>
-                            <option name="size" value="M">M</option>
-                            <option name="size" value="L">L</option>
-                            <option name="size" value="XL">XL</option>
+                        <select class="detail-group__size" name="size" required>
+                            <option value="">Select Size</option>
+                            <option value="XS">XS</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
                         </select>
                     </div>
                     <div class="detail-group">
                         <p class="detail-group__span">Quantity:</p>
-                        <input name="quantity" class="detail-group__quantity" min="1" value="1" type="number" required>
+                        <input name="quantity" class="detail-group__quantity" value="1" type="number" required>
                     </div>
-                    <button type="submit" class="btn btn--form btn--form--shop">Add to cart</button>
+                    <button type="submit" class="btn btn--form btn--form--shop add-to-cart-btn">Add to cart</button>
                     <a href="" class="btn-view">Go Back</a>
                 </div>
             </div>
         </div>
     </div>
 </form>
+
 
 
 
@@ -205,7 +213,7 @@ $product = Product::listCategoryMen($category);
     var price = $(this).closest('.shop-item').find('.clothingPrice').text();
     var productName = $(this).closest('.shop-item').find('.quickview__icon').attr('id');
     var description = $(this).closest('.shop-item').find('.quickview__info').clone().children().remove().end().text();
-
+    
     $('.popup-clothingDescription').text(description);
     $('.popup-clothingImg').prop('src', imgsrc);
     $('.popup-clothingName').text(productName);
@@ -213,13 +221,14 @@ $product = Product::listCategoryMen($category);
 
     var quantityInput = $('.detail-group__quantity');
     var addToCartButton = $('.btn--form--shop');
+    var sizeSelect = $('.detail-group__size');
 
     // Get the stock quantity for the product
     var stockQuantity = parseInt($(this).closest('.shop-item').find('.stockQuantity').val());
 
     // Update the max attribute of the quantity input field
     quantityInput.attr('max', stockQuantity);
-
+    var addToCartButton = $('.add-to-cart-btn');
     // Disable the "Add to Cart" button if the stock quantity is 0
     if (stockQuantity === 0) {
         addToCartButton.prop('disabled', true);
@@ -230,8 +239,14 @@ $product = Product::listCategoryMen($category);
     // Disable the quantity input if the stock quantity is 0
     if (stockQuantity === 0) {
         quantityInput.prop('disabled', true);
+        quantityInput.attr('min', 0);
+        quantityInput.val(0);
+        sizeSelect.prop('disabled', true); // Disable the size selection
+        sizeSelect.val('');
     } else {
         quantityInput.prop('disabled', false);
+        quantityInput.attr('min', 1);
+
     }
     
     
@@ -271,7 +286,34 @@ $('.btn--form--shop').click(function(e) {
         }
     });
 </script>    
-                      
+          
+<script>
+   function validateForm() {
+    var sizeSelect = document.querySelector('.detail-group__size');
+    var quantityInput = document.querySelector('.detail-group__quantity');
+    var stockQuantity = parseInt(quantityInput.getAttribute('max'));
+
+    if (sizeSelect.value === "") {
+        alert("Please select a size.");
+        return false; // Prevent form submission
+    }
+
+    if (parseInt(quantityInput.value) > stockQuantity) {
+        alert("Stock quantity is insufficient.");
+        return false; // Prevent form submission
+    }
+
+    if (quantityInput.value === "" || parseInt(quantityInput.value) <= 0) {
+        alert("Please enter a valid quantity.");
+        return false; // Prevent form submission
+    }
+    
+    return true; // Proceed with form submission
+}
+
+</script>
+
+
 </body>
 
 </html>

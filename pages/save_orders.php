@@ -17,12 +17,11 @@ $total_amount = $cart['price'] * $cart['cart_quantity'];
 $order_status = "Delivered";
 $order_date = date('Y-m-d H:i:s');
 $payment_information = $_POST['card_number'] . ',' . $_POST['cardholder_name'] . ',' . $_POST['expires'] . ',' . $_POST['cvc'];
-$billingAddress = $_POST['billing_address'] . ',' . $_POST['billing_city'] . ',' . $_POST['billing_state'] . ',' . $_POST['billing_zip'];
 $size = $cart['size'];
 
 
 
-$result = Order::add($product_id, $user_id, $shipping_address, $total_amount, $order_status, $order_date, $billingAddress, $payment_information, $order_quantity, $size);
+$result = Order::add($product_id, $user_id, $shipping_address, $total_amount, $order_status, $order_date, $payment_information, $order_quantity, $size);
 
 if ($result) {
     $update = Order::updateAndDel($cart_id, $quantity, $product_id);

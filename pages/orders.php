@@ -139,7 +139,6 @@ $orders = Order::listOrders();
                     <p class="order-id">Order ID: <?php echo $order->getOrderID(); ?></p>
                     <p class="quantity">Quantity: <?php echo $order->getOrderQuantity(); ?></p>
                     <p class="size">Size: <?php echo $order->getSize(); ?></p>
-                    <p class="billing">Billing Address: <?php echo $order->getBilling(); ?></p>
                     <p class="address">Shipping Address: <?php echo $order->getAddress(); ?></p>
                     <p class="date">Date: <?php echo $order->getDate(); ?></p>
                     <p class="status">Status: <?php echo $order->getStatus(); ?></p>

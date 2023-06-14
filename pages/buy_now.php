@@ -17,13 +17,11 @@ $user = User::getById($user_id);
 
 // Assuming you have retrieved the address from the database into the $address variable
 $address = $user->getShipping(); // Replace $row['address'] with your actual variable or value
-$billing = $user->getBilling();
 // Define an array of special characters to split the address
 $specialChars = array(',', '.', ';', ':', '-');
 
 // Split the address using the special characters
 $addressParts = preg_split('/[' . preg_quote(implode($specialChars), '/') . ']/', $address, -1, PREG_SPLIT_NO_EMPTY);
-$billingAddress = preg_split('/[' . preg_quote(implode($specialChars), '/') . ']/', $billing, -1, PREG_SPLIT_NO_EMPTY);
 ?>
 
 <!DOCTYPE html>
@@ -159,7 +157,7 @@ $billingAddress = preg_split('/[' . preg_quote(implode($specialChars), '/') . ']
             </div>
             <div class="col-md-6">
                 <div class="purchaseNowContainer">
-                    <form action="save_orders.php?id=<?php echo $cart_id?>" method="POST">
+                    <form action="save_orders.php?id=<?php echo $cart_id?>" method="POST" onsubmit="return validateForm()">
                         <div class="row">
                             <div class="col-12 mb-4">
                                 <h4 class="productName" ><?php echo $item['product_name']; ?></h4>
@@ -250,6 +248,25 @@ $billingAddress = preg_split('/[' . preg_quote(implode($specialChars), '/') . ']
             </div>
         </div>
     </div>
+    <script>
+    function validateForm() {
+        var cardNumberInput = document.getElementById('card-number');
+        var expiresInput = document.getElementById('expires');
+        var cardholderNameInput = document.getElementById('cardholder-name');
+        var cvcInput = document.getElementById('cvc');
+        var shippingAddressInput = document.getElementById('shipping-address');
+        var shippingCityInput = document.getElementById('shipping-city');
+        var shippingStateInput = document.getElementById('shipping-state');
+        var shippingZipInput = document.getElementById('shipping-zip');
+
+        if (cardNumberInput.value === "" || expiresInput.value === "" || cardholderNameInput.value === "" || cvcInput.value === "" || shippingAddressInput.value === "" || shippingCityInput.value === "" || shippingStateInput.value === "" || shippingZipInput.value === "") {
+            alert("Please fill in all fields.");
+            return false; // Prevent form submission
+        }
+
+        return true; // Proceed with form submission
+    }
+</script>
 </body>
 
 </html>

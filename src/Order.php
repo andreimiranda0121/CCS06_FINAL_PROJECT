@@ -23,15 +23,10 @@ class Order
     protected $order_status;
     protected $shipping_address;
     protected $order_date;
-    protected $billing_address;
     protected $order_quantity;
 
     public function getOrderQuantity(){
         return $this->order_quantity;
-    }
-
-    public function getBilling(){
-        return $this->billing_address;
     }
 
     public function getProdName(){
@@ -87,7 +82,6 @@ class Order
             o.order_quantity,
             o.order_id,
             o.size,
-            o.billing_address,
             p.image_path,
             o.total_amount,
             o.shipping_address,
@@ -115,14 +109,14 @@ class Order
     }
 }
 
-    public static function add($product_id, $user_id, $shipping_address, $total_amount, $order_status, $order_date, $billing_address, $payment_information,$order_quantity,$size)
+    public static function add($product_id, $user_id, $shipping_address, $total_amount, $order_status, $order_date, $payment_information,$order_quantity,$size)
     {
         global $conn;
         try {
             // Insert the order
             $sql = "
-                INSERT INTO orders (product_id, user_id, shipping_address, total_amount, order_status, order_date, billing_address, payment_information,order_quantity,size)
-                VALUES ('$product_id', '$user_id', '$shipping_address', '$total_amount', '$order_status', '$order_date', '$billing_address', '$payment_information','$order_quantity','$size')
+                INSERT INTO orders (product_id, user_id, shipping_address, total_amount, order_status, order_date, payment_information,order_quantity,size)
+                VALUES ('$product_id', '$user_id', '$shipping_address', '$total_amount', '$order_status', '$order_date', '$payment_information','$order_quantity','$size')
             ";
             $conn->exec($sql);
             return $conn->lastInsertId();

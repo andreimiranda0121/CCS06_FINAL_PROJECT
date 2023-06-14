@@ -99,7 +99,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
                 <p>Price: Php <?php echo $item->getPrice()*$item->getQuantity(); ?></p>
             </div>
             <div class="price">
-                <p>Size: </p>
+                <p>Size: <?php echo $item->getSize();?> </p>
             </div>
                 <form method="post">
                     <div>

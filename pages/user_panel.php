@@ -27,6 +27,11 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     <title>User Information</title>
 </head>
 <style>
+    .btn:disabled,
+        .btn[disabled] {
+            background-color: black;
+            pointer-events: none;
+        }
      .menu-btn {
         position: relative;
         display: inline-block;
@@ -80,6 +85,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     body {
         margin: 0;
         padding: 0;
+        overflow: auto; 
     }
     .btn{
         background-color: black;
@@ -145,34 +151,75 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
             </div>
         </div>
     </div>
-    <br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br>
     <div class="container1">
-
-    <div class="container">
-        <form action="save_user.php" method="POST" enctype="multipart/form-data">
+        <div class="container">
+            <form action="save_user.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
             <input type="hidden" name="id" value="<?php echo $user->getID(); ?>">
             <div>
+                <label>Fullname: </label>
+                <input type="text" class="box" value="<?php echo $user->getFullname(); ?>" name="fullname" required readonly >
+            </div>
+            <div>
                 <label>Username: </label>
-                <input type="text" class="box" value="<?php echo $user->getUsername(); ?>" name="username" required><br>
+                <input type="text" class="box" value="<?php echo $user->getUsername(); ?>" name="username" required readonly >
             </div>
             <div>
                 <label>Email: </label>
-                <input type="email" value="<?php echo $user->getEmail(); ?>" name="email" class="box" required><br>
+                <input type="email" value="<?php echo $user->getEmail(); ?>" name="email" class="box" required readonly>
             </div>
             <div>
                 <label>Shipping Address: </label>
-                <input type="text" value="<?php echo $user->getShipping(); ?>" name="shipping" class="box" required><br>
+                <input type="text" value="<?php echo $user->getShipping(); ?>" name="address" class="box" required readonly >
             </div>
             <div>
-                <label>Billing Address:</label>
-                <input type="text" value="<?php echo $user->getBilling(); ?>" name="billing" class="box" required><br>
+                <label>Phone Number</label>
+                <input class="box" type="text" name="contact" value="<?php echo $user->getContact()?>" required readonly >
             </div>
-            
-            <input type="submit" value="Save" class="btn">
-        </form>
+            <div class="field">
+                <label>Password</label>
+                <input class="box" type="password" id="passwordField" name="password" value="<?php echo $user->getPassword()?>" required placeholder="Enter your password" readonly >
+            </div>
+            <div class="field">
+                <label>Confirm Password</label>
+                <input class="box" type="password" id="confirmField" value="<?php echo $user->getPassword()?>" required placeholder="Enter your confirm password" readonly >
+            </div>
+            <div>
+                    <input type="checkbox" id="editCheckbox" onchange="toggleEditing(this)">
+                    <label for="editCheckbox">Enable Editing</label><br>
+                </div>
+                <input type="submit" value="Save" id="saveButton" class="btn" disabled>
+            </form>
+        </div>
     </div>
-    </div>
-    <script src="../scripts/login_sidebar.js"></script>
+<script src="../scripts/login_sidebar.js"></script>
+<script>
+     const editCheckbox = document.getElementById('editCheckbox');
+        const inputFields = document.querySelectorAll('.box');
+        const saveButton = document.getElementById('saveButton');
+
+        editCheckbox.addEventListener('change', function() {
+            const isEditingEnabled = this.checked;
+
+            inputFields.forEach(function(input) {
+                input.readOnly = !isEditingEnabled;
+            });
+
+            saveButton.disabled = !isEditingEnabled;
+        });
+
+    function validateForm() {
+        const passwordField = document.getElementById('passwordField');
+        const confirmField = document.getElementById('confirmField');
+        
+        if (passwordField.value !== confirmField.value) {
+            alert('Passwords do not match. Please make sure the passwords match.');
+            return false;
+        }
+        
+        return true;
+    }
+</script>
 
 </body>
 </html>

@@ -67,7 +67,7 @@
          .registration-form input[type="text"],
          .registration-form input[type="password"],
          .registration-form input[type="email"],
-         .registration-form input[type="text"][placeholder="Billing Information & Shipping Address"],
+         .registration-form input[type="text"][placeholder="Shipping Address"],
          .registration-form input[type="text"][placeholder="Username"],
          .registration-form input[type="text"][placeholder="Password"],
          .registration-form input[type="text"][placeholder="Confirm"] {
@@ -175,14 +175,10 @@
           <br>
           <div class="field">
              <span class="fa fa-map-marker"></span>
-             <input type="text" name="address" required placeholder="Address">
+             <input type="text" name="address" required placeholder="Street Address,City,Province,ZIP">
           </div>
           <br>
-          <div class="field">
-             <span class="fa fa-credit-card"></span>
-             <input type="text" name="billing" required placeholder="Shipping Address">
-          </div>
-          <br>
+          
           <div class="field">
              <span class="fa fa-credit-card"></span>
              <input type="text" name="username" required placeholder="Username">
