@@ -90,8 +90,8 @@
   text-decoration: underline;
 }
 .field input[type="submit"]{
-  background: #3498db;
-  border: 1px solid #2691d9;
+  background: #f7f9fa;
+  border: 1px solid #ffffff;
   color: white;
   font-size: 18px;
   letter-spacing: 1px;

@@ -21,8 +21,11 @@ try {
 
     if ($result) {
         move_uploaded_file($image["tmp_name"], $targetFilePath);
-        header('Location: admin_panel.php');
-        exit(); // Add this line to prevent further code execution
+        echo "
+            <script>
+                alert('Adding product was successfully. Click Ok to go back');
+                window.location.href = 'admin_panel.php';
+            </script>";
     } else {
         echo "<h1>There was an error in saving the product.</h1>";
     }

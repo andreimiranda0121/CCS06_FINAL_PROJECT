@@ -12,7 +12,11 @@ try {
 	$result = Cart::delByID($cart_id);
 
 	if ($result) {
-		header('Location: cart.php');
+		echo "
+            <script>
+                alert('Product was successfuly deleted');
+                window.location.href = 'cart.php';
+            </script>";
 	}
 
 } catch (PDOException $e) {

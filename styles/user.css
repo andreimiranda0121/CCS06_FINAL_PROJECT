@@ -1,39 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
-.b25 {
-   background: #252525;
+
+:root{
+   --green:#27ae60;
+   --black:#333;
+   --white:#fff;
+   --bg-color:#eee;
+   --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+   --border:.1rem solid var(--black);
 }
 
-.b1 {
-   background: #1b1b1b;
-}
-
-.bg {
-   position: fixed;
-   top: -4rem;
-   left: -12rem;
-   z-index: -1;
-   opacity: 0.7;
-}
-
-.bg2 {
-   position: fixed;
-   bottom: -2rem;
-   right: -3rem;
-   z-index: -1;
-   width: 9.375rem;
-   opacity: 0.7;
-}
-
-
-
-h2 {
-   margin-top: 20px;
-   position: absolute;
-   left: 45%;
-   color: #fff;
-   text-align: center;
-   font-family: Helvetica, Arial, sans-serif;
-}
 *{
    font-family: 'Poppins', sans-serif;
    margin:0; padding:0;
@@ -76,13 +51,9 @@ html{
 }
 
 .container{
-   display: flex;
    max-width: 1200px;
    padding:2rem;
-   margin: 7%;
-   margin-bottom:1px;
-   margin-left: 400px;
-
+   margin: 10%;
 }
 
 .container.centered{
@@ -119,23 +90,7 @@ html{
    text-transform: none;
    top: 100px;
 }
-.image{
-   display: flex;
-   border-radius: 3em;
-   align-items: center;
-   margin-bottom: 20px;
-   margin-top: -80px;
-   min-width: 300px;
-   max-width: 300px;
-   min-height: 450px;
-   max-height: 450px;
-   left: 50%;
-   top: 95px;
-   position: relative;
-}
-.imageContainer{
-   display: flex;
-}
+
 
 
 .product-display{
@@ -249,11 +204,11 @@ html{
    transition: color 0.3s;
 }
 
-.dashboard:hover .back {
+.dashboard:hover .menu-icon i {
    color: black;
 }
 
-.dashboard:hover .back {
+.dashboard:hover .nav-links a i {
    color: black;
 }
 
@@ -273,6 +228,13 @@ html{
 .dashboard:hover {
    background-color: white;
 }
+
+
+
+
+
+
+
 
 
 @media (max-width:991px){
@@ -301,18 +263,4 @@ html{
       font-size: 50%;
    }
 
-}
-.back{
-   background-color: rgb(255, 255, 255);
-   color: rgb(8, 8, 8);
-   margin-left: 20px;
-   border-style: solid black;
-   padding: 10px;
-   border-radius: 2em;
-   cursor: pointer;
-}
-.back:hover{
-   background-color: white;
-   color: black;
-   transition: color 0.3s;
 }

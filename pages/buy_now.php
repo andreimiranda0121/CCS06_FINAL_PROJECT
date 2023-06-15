@@ -142,7 +142,7 @@ $addressParts = preg_split('/[' . preg_quote(implode($specialChars), '/') . ']/'
         <div class="row">
             <div class="col-12">
                 <div class="returnContainer">
-                    <a href="javascript:history.back()" class="return-btn">
+                    <a href="cart.php" class="return-btn">
                         <span class="fas fa-arrow-left pe-2"></span>Return
                     </a>
                 </div>

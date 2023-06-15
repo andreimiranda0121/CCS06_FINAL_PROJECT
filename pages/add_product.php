@@ -6,71 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../styles/addProduct.css">
-    <style>
-        .b25 {
-            background: #252525;
-        }
-
-        .b1 {
-            background: #1b1b1b;
-        }
-
-        .bg {
-            position: fixed;
-            top: -4rem;
-            left: -12rem;
-            z-index: -1;
-            opacity: 0.7;
-        }
-
-        .bg2 {
-            position: fixed;
-            bottom: -2rem;
-            right: -3rem;
-            z-index: -1;
-            width: 9.375rem;
-            opacity: 0.7;
-        }
-
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            left: 20px;
-            position: absolute;
-            top: 20px;
-        }
-
-        .black-bar {
-            background-color: #000;
-            height: 70px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-        }
-
-        h2 {
-            margin-top: 20px;
-            position: absolute;
-            left: 45%;
-            color: #fff;
-            text-align: center;
-            font-family: Helvetica, Arial, sans-serif;
-        }
-    </style>
+  
     <title>Add Product</title>
 </head>
 <body>
 
     <div class="dashboard">
-        <button class="button" onclick="history.back()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+        <button class="back" onclick="history.back()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
         <div class="dashboard-title">
             <a>Mal De Wear</a>
         </div>

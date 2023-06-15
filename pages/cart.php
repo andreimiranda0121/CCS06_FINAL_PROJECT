@@ -32,6 +32,14 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     <link rel="stylesheet" href="../styles/cart.css">
     <link rel="stylesheet" href="../styles/form.css">
     <title>My Cart</title>
+    <style>
+        .btn--outOfStock {
+            background-color: #ccc;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+    </style>
 </head>
 <body>
     <div>
@@ -111,7 +119,12 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
                     </div>
                 </form>
                 <!-- Buy Now button -->
-                    <br><a class="btn btn--buy btn--buyBtn" href="buy_now.php?id=<?php echo $item->getCartID();?>">Buy Now</a>
+                <br>
+                <?php if ($item->getProdQuantity() > 0) : ?>
+                    <a class="btn btn--buy btn--buyBtn" href="buy_now.php?id=<?php echo $item->getCartID();?>">Buy Now</a>
+                <?php else: ?>
+                    <a class="btn btn--buy btn--buyBtn btn--outOfStock" href="#" disabled>Out of Stock</a>
+                <?php endif; ?>
                     <button class="btn btn--remove" data-cart-id="<?php echo $item->getCartID(); ?>">Remove</button>
 
             <div id="myModal-<?php echo $item->getCartID(); ?>" class="modal">
@@ -124,6 +137,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
         </div>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <script>
             $(document).ready(function() {
                 $(".btn--remove").click(function() {

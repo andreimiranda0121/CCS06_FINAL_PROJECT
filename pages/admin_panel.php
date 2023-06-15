@@ -51,10 +51,11 @@ $result = Product::list();
     <div class="container">
         <div class="button-container">
             <a href="add_product.php" class="button add">Add Product</a>
-        </div>
+     
         <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search products...">
         <button type="button" id="searchButton" class="button search">Search</button>
+    
     </div>
 
         <div class="product-container">
@@ -62,11 +63,11 @@ $result = Product::list();
             <div class="product-card">
 
                 <img src='../images/<?php echo $res->getGender();   ?>/<?php echo $res->getImage();?>' alt="Product 1" class="product-image">
-                <div class="product-details">
-                    <div class="product-name">
-                        <label><b>Name:</b> </label>
+                <div class="product-name">
                         <?=$res->getProdName(); ?>
                     </div>
+                <div class="product-details">
+                    
                     <div class="product-price">
                         <label><b>Price:</b> Php</label>
                         <?=$res->getPrice();?>
@@ -92,12 +93,13 @@ $result = Product::list();
                     
                     <div class="product-actions">
                         <a href="edit_product.php?id=<?php echo $res->getProdID();?>" class="button edit">Edit</a>
-                        <button class="button delete" onclick="openForm()">Delete</button>
-                        <div class="form-popup" id="myForm">
-                            <form action="delete_product.php?id=<?php echo $res->getProdID();?>" method="POST" class="form-container">
+                        <button class="button delete" onclick="openForm(<?php echo $res->getProdID();?>)">Delete</button>
+                        <div class="form-popup" id="myForm-<?php echo $res->getProdID();?>">
+                            <form action="delete_product.php" method="POST" class="form-container">
                                 <h3>Are you sure you want to delete this product?</h3>
                                 <input type="submit" class="btn" value="Confirm">
-                                <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                                <input type="hidden" name="id" value="<?php echo $res->getProdID();?>">
+                                <button type="button" class="btn cancel" onclick="closeForm(<?php echo $res->getProdID();?>)">Cancel</button>
                             </form>
                         </div>
                     </div>
@@ -159,6 +161,17 @@ document.getElementById("searchInput").addEventListener("input", function() {
 
 
 
+</script>
+
+
+<script>
+    function openForm(productId) {
+        document.getElementById("myForm-" + productId).style.display = "block";
+    }
+
+    function closeForm(productId) {
+        document.getElementById("myForm-" + productId).style.display = "none";
+    }
 </script>
 
 </body>

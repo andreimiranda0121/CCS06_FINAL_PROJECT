@@ -7,11 +7,17 @@ use App\Product;
 // Remove Student record, and automatically redirect to index
 
 try {
-	$product_id = $_GET['id'];
+	$product_id = $_POST['id'];
 	$result = Product::delProd($product_id);
 
 	if ($result) {
-		header('Location: admin_panel.php');
+		echo "
+            <script>
+                alert('Product was successfuly deleted');
+                window.location.href = 'cart.php';
+            </script>";
+	}else{
+		echo "<h1>There was an error $product_id</h1>";
 	}
 
 } catch (PDOException $e) {

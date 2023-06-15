@@ -135,7 +135,7 @@ public static function register($username, $password, $role, $fullname, $address
         return null;
     }
 
-    public static function update($user_id, $username, $password, $fullname, $address, $email, $contact) {
+    public static function update($user_id, $username, $password, $fullname, $shipping_address, $email, $contact) {
         global $conn;
         try {
             $sql = "UPDATE users
@@ -151,7 +151,7 @@ public static function register($username, $password, $role, $fullname, $address
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':password', $password);
             $stmt->bindParam(':fullname', $fullname);
-            $stmt->bindParam(':shipping_address', $address);
+            $stmt->bindParam(':shipping_address', $shipping_address);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':contact', $contact);
             $stmt->bindParam(':user_id', $user_id);

@@ -204,37 +204,40 @@ class Product
     }
 
 
-    public static function edit($product_id,$product_name,$price,$product_description,$product_quantity,$gender,$category){
-        global $conn;
+    public static function edit($product_id, $product_name, $price, $product_description, $product_quantity, $gender, $category, $image_path)
+{
+    global $conn;
 
-        try {
-			$sql = "
-                UPDATE products
-                SET
-                    product_name =:product_name,
-                    price= :price,
-                    product_description =:product_description,
-                    product_quantity =:product_quantity,
-                    gender =:gender,
-                    category =:category
-                WHERE product_id = :product_id
-            ";
-			$statement = $conn->prepare($sql);
-			return $statement->execute([
-				'product_name' => $product_name,
-				'price' => $price,
-                'product_description' => $product_description,
-                'product_quantity' => $product_quantity,
-                'gender' => $gender,
-                'category' => $category,
-				'product_id' => $product_id
-			]);
-		} catch (PDOException $e) {
-			error_log($e->getMessage());
-		}
-
-		return false;
+    try {
+        $sql = "
+            UPDATE products
+            SET
+                product_name = :product_name,
+                price = :price,
+                product_description = :product_description,
+                product_quantity = :product_quantity,
+                gender = :gender,
+                image_path = :image_path,
+                category = :category
+            WHERE product_id = :product_id
+        ";
+        $statement = $conn->prepare($sql);
+        return $statement->execute([
+            'product_name' => $product_name,
+            'price' => $price,
+            'product_description' => $product_description,
+            'product_quantity' => $product_quantity,
+            'gender' => $gender,
+            'category' => $category,
+            'image_path' => $image_path,
+            'product_id' => $product_id
+        ]);
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
     }
+
+    return false;
+}
 
     public static function getById($product_id){
         global $conn;

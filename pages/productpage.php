@@ -143,7 +143,7 @@ $product = Product::list();
     foreach ($product as $prod):    
         ?>
         <a href="#" class="shop-item" data-product-id="<?php echo $prod->getProdID();?>">
-            <img src="../images/<?php echo $prod->getGender(); ?>/<?php echo $prod->getImage(); ?>" alt="Clothing item" class="lazy shop-item__img clothingImg">
+        <img src='../images/<?php echo $prod->getGender(); ?>/<?php echo $prod->getImage(); ?>' alt="Clothing item" class="lazy shop-item__img clothingImg">
             <div class="quickview">
                 <button class="quickview__icon overview-btn" id="<?php echo $prod->getProdName(); ?>">Overview</button>
                 <span class="quickview__info"><?php echo $prod->getDescription(); ?><br><span class="quickview__info--price clothingPrice">₱<?php echo $prod->getPrice(); ?></span></span>
