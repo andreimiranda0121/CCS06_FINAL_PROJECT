@@ -14,7 +14,7 @@ try {
 		echo "
             <script>
                 alert('Product was successfuly deleted');
-                window.location.href = 'cart.php';
+                window.location.href = 'admin_panel.php';
             </script>";
 	}else{
 		echo "<h1>There was an error $product_id</h1>";

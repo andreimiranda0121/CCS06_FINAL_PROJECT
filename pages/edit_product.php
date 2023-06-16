@@ -64,7 +64,6 @@ $product = Product::getById($prod_id);
     </div>
         <form action="save_edit.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $product->getProdID(); ?>">
-            <input type="file" accept="image/*" name="images" id="fileInput" onchange="showFileName()" value="<?php echo $product->getImage(); ?>">
             <input type="hidden" value="<?php echo $product->getImage(); ?>" name="image">
             <div>
                 <label>Product Name: </label>
